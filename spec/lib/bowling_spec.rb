@@ -1,6 +1,7 @@
 # bowling_spec.rb
 require "bowling"
 
+
 describe "ボウリングのスコア計算" do
     # インスタンスの生成を共通化
     before do
