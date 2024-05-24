@@ -10,13 +10,13 @@ describe "ボウリングのスコア計算" do
     describe "全体の合計" do
         context "すべての投球がガター"do
             it "0になること" do
-                add_many_scores(20, 0)
+                add_many_score(20, 0)
                 expect(@game.total_score).to eq 0
-                end
+                
             end
         end
 
-        context"すべての投球で1ピンずつ倒した場合" do 
+        context "すべての投球で1ピンずつ倒した場合" do 
             it "20になること" do
                 add_many_score(20, 1)
                 expect(@game.total_score).to eq 20
