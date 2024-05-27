@@ -157,7 +157,54 @@ describe "ボウリングのスコア計算" do
         end
       end
     end 
+
+    describe "フレームごとの合計"
+      context"全ての投球で1ピンずつ倒した場合" do
+        it "１フレーム目の合計が２になること" do
+          add_many_scores(20, 1)
+          #合計を計算
+          @game.calc_score
+          expect(@game.calc_score(1)).to eq 2
+        end
+      end
+
+      context"スペアを取った場合" do
+        it "スペアボーナスが加算されること" do
+          #第一フレームで3点、7点のスペア
+          @game.add_score(3)
+          @game.add_score(7)
+          #第二フレームの一投目で4点
+          @game.add_score(4)
+          #以降はすべてのガター
+          add_many_scores(17,0)
+          #合計を計算
+          @game.calc_score
+          #期待する合計　※（）内はボーナス点
+          #3+ 7+ (4)= 14
+          expect(@game.frame_score(1)).to eq 14
+        end
+      end
+
+      context"ストライクを取った場合" do
+        it "ストライクボーナスが加算されること" do
+          #第一フレームでストライク
+          @game.add_score(10)
+          #第二フレームで5点、4点
+          @game.add_score(5)
+          @game.add_score(4)
+          #以降はすべてガーター
+          add_many_scores(16, 0)
+          #合計を計算
+          @game.calc_score
+          #期待する合計
+          #10 + (5) + (4) = 19
+          expect(@game.frame_score(1)).to eq 19
+        end
+      end
+      
 end
+
+
   
   private
   # 複数回のスコア追加をまとめて実行する
