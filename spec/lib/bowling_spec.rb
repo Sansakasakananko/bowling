@@ -158,13 +158,13 @@ describe "ボウリングのスコア計算" do
       end
     end 
 
-    describe "フレームごとの合計"
+    describe "フレームごとの合計" do
       context"全ての投球で1ピンずつ倒した場合" do
         it "１フレーム目の合計が２になること" do
           add_many_scores(20, 1)
           #合計を計算
           @game.calc_score
-          expect(@game.calc_score(1)).to eq 2
+          expect(@game.frame_score(1)).to eq 2
         end
       end
 
@@ -201,8 +201,9 @@ describe "ボウリングのスコア計算" do
           expect(@game.frame_score(1)).to eq 19
         end
       end
-      
-end
+    end
+
+
 
 
   
@@ -213,3 +214,4 @@ end
       @game.add_score(pins)
     end
   end
+end

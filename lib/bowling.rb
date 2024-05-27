@@ -4,21 +4,30 @@
 
 # ボウリングのスコアを管理するクラス
 class Bowling
-    # インスタンスを生成する時に処理が実行される
-    def initialize
-      # スコアの合計
-      @total_score = 0
-      # 全体のスコアを格納する配列
-      @scores = []
-      # 一時保存用の配列
-      @temp = []
-    end
+   #インスタンスを生成するときに処理が実行される
+  def initialize
+    #スコアの合計
+    @total_score = 0
+    #全体のスコアを格納する配列
+    @scores = []
+    #一時保存用の配列
+    @temp = []
+    #フレームごとの合計を格納する配列
+    @frame_score = []
+  end
+
+  
   
     # スコアの合計を返す
     def total_score
       @total_score
     end
-  
+
+    #指定したフレームの時点でスコアの合計を返す
+    def frame_score(frame)
+      @frame_score[frame - 1]
+    end
+
     # スコアを追加する
     def add_score(pins)
       # 一時保存用のスコアに、倒したピンの数を追加する
@@ -42,9 +51,11 @@ class Bowling
       else
         @total_score += score.inject(:+)
       end
+      #合計をフレームごとに記録しておく
+      @frame_score << @total_score
     end
   end
-
+  
   
 
 
