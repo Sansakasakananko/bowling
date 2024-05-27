@@ -83,85 +83,81 @@ describe "ボウリングのスコア計算" do
       end
       context "ストライクを取った場合" do
         it "ストライクボーナスが加算されること" do
-          #第一フレームでストライク
+          # 第一フレームでストライク
           @game.add_score(10)
-          #第二フレームで5点、4点
+          # 第二フレームで5点, 4点
           @game.add_score(5)
           @game.add_score(4)
-          #以降はすべてガター
+          # 以降は全てガター
           add_many_scores(16, 0)
-          #合計を計算
+          # 合計を計算
           @game.calc_score
-          #期待する合計　※()内はボーナス点
-          #10+5+(5)+4+(4)=28
+          # 期待する合計　※()内はボーナス点
+          # 10 + 5 + (5) + 4 + (4) = 28
           expect(@game.total_score).to eq 28
         end
       end
-
-
+  
       context "ダブルを取った場合" do
-        it "それぞれのストライクボーナスが加算されること"
-          #第一フレームでストライク
+        it "それぞれのストライクボーナスが加算されること" do
+          # 第一フレームでストライク
           @game.add_score(10)
-          #第二フレームでストライク
+          # 第二フレームもストライク
           @game.add_score(10)
-          #第三フレームで5点、4点
+          # 第三フレームで5点, 4点
           @game.add_score(5)
           @game.add_score(4)
-          #以降はすべてガター
+          # 以降は全てガター
           add_many_scores(14, 0)
-          #合計を計算
+          # 合計を計算
           @game.calc_score
-          #10 + 10 +(10) + 5 + (5 + 5) +4 +(4) = 53
-          expect(@game.calc_score).to eq 53
+          # 期待する合計　※()内はボーナス点
+          # 10 + 10 + (10) + 5 +(5 + 5) + 4 + (4) = 53
+          expect(@game.total_score).to eq 53
+        end
       end
-    end
-    
-    
-    context "ターキーを取った場合"
-      it "それぞれのストライクボーナスが加算されること"
-        #第一フレームでストライク
-        @game.add_score(10)
-        #第二フレームでストライク
-        @game.add_score(10)
-        #第三フレームでストライク
-        @game.add_score(10)
-        #第4フレームで5点、4点
-        @game.add_score(5)
-        @game.add_score(4)
-        #以降はすべてガター
-        add_many_scores(14, 0)
-        #合計を計算
-        @game.calc_score
-        #10 +10 +(10) +10 +(10 + 10) + 5 + (5+ 5) +4 +(4) =　83
-        expect(@game.total_score).to eq 83
-     end
-    end
-
-    context "最終フレームでストライクを取った場合" do
-      it "ストライクボーナスが加算されないこと" do
-        # 第一フレームでストライク
-        @game.add_score(10)
-        # 第二フレームで5点, 4点
-        @game.add_score(5)
-        @game.add_score(4)
-        # 3~9フレームは全てガター
-        add_many_scores(14, 0)
-        # 最終フレームでストライク
-        @game.add_score(10)
-        # 合計を計算
-        @game.calc_score
-        # 期待する合計　※()内はボーナス点
-        # 10 + 5 + (5) + 4 + (4) + 10 = 38
-        expect(@game.total_score).to eq 38
+  
+      context "ターキーを取った場合" do
+        it "それぞれのストライクボーナスが加算されること" do
+          # 第一フレームでストライク
+          @game.add_score(10)
+          # 第二フレームもストライク
+          @game.add_score(10)
+          # 第三フレームもストライク
+          @game.add_score(10)
+          # 第四フレームで5点, 4点
+          @game.add_score(5)
+          @game.add_score(4)
+          # 以降は全てガター
+          add_many_scores(12, 0)
+          # 合計を計算
+          @game.calc_score
+          # 期待する合計　※()内はボーナス点
+          # 10 + 10 + (10) + 10 + (10 + 10) + 5 +(5 + 5) + 4 + (4) = 83
+          expect(@game.total_score).to eq 83
+        end
       end
-    end
-
-
-    
-    
-    end
-  end
+  
+      context "最終フレームでストライクを取った場合" do
+        it "ストライクボーナスが加算されないこと" do
+          # 第一フレームでストライク
+          @game.add_score(10)
+          # 第二フレームで5点, 4点
+          @game.add_score(5)
+          @game.add_score(4)
+          # 3~9フレームは全てガター
+          add_many_scores(14, 0)
+          # 最終フレームでストライク
+          @game.add_score(10)
+          # 合計を計算
+          @game.calc_score
+          # 期待する合計　※()内はボーナス点
+          # 10 + 5 + (5) + 4 + (4) + 10 = 38
+          expect(@game.total_score).to eq 38
+        end
+      end
+    end 
+end
   
   private
   # 複数回のスコア追加をまとめて実行する
